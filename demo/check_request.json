@@ -1,0 +1,56 @@
+{
+  "submissions": [
+    {
+      "id": "S01",
+      "sample_no": "WQ1001",
+      "sampling_point": "东岸取水口"
+    },
+    {
+      "id": "S02",
+      "sample_no": "WQ1003",
+      "sampling_point": "西岸取水口"
+    },
+    {
+      "id": "S03",
+      "sample_no": "WQ5555",
+      "sampling_point": "南岸取水口"
+    },
+    {
+      "id": "S04",
+      "sample_no": "WQ1003",
+      "sampling_point": "西岸复采点"
+    }
+  ],
+  "instruments": [
+    {
+      "id": "I01",
+      "sample_no": "WQ1002",
+      "value": 7.42
+    },
+    {
+      "id": "I02",
+      "sample_no": "WQ1004",
+      "value": 7.18
+    },
+    {
+      "id": "I03",
+      "sample_no": "WQ1000",
+      "value": 7.51
+    },
+    {
+      "id": "I04",
+      "sample_no": "WQ5555",
+      "value": 8.03
+    },
+    {
+      "id": "I05",
+      "sample_no": "ZZZ999",
+      "value": 6.97
+    },
+    {
+      "id": "I06",
+      "sample_no": "WQ1006",
+      "value": 7.66
+    }
+  ]
+}

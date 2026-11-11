@@ -1,0 +1,155 @@
+{
+  "summary": {
+    "submission_count": 4,
+    "instrument_count": 6,
+    "max_matched_pairs": 4,
+    "min_total_distance": 3,
+    "confirmed_count": 1,
+    "review_count": 5,
+    "possible_unmatched_count": 5
+  },
+  "results": [
+    {
+      "instrument_id": "I01",
+      "recorded_sample_no": "WQ1002",
+      "value": 7.42,
+      "status": "review",
+      "confirmed_mapping": null,
+      "candidate_mappings": [
+        {
+          "submission_id": "S01",
+          "sample_no": "WQ1001",
+          "sampling_point": "东岸取水口",
+          "distance": 1
+        },
+        {
+          "submission_id": "S02",
+          "sample_no": "WQ1003",
+          "sampling_point": "西岸取水口",
+          "distance": 1
+        },
+        {
+          "submission_id": "S04",
+          "sample_no": "WQ1003",
+          "sampling_point": "西岸复采点",
+          "distance": 1
+        }
+      ],
+      "possible_unmatched": true
+    },
+    {
+      "instrument_id": "I02",
+      "recorded_sample_no": "WQ1004",
+      "value": 7.18,
+      "status": "review",
+      "confirmed_mapping": null,
+      "candidate_mappings": [
+        {
+          "submission_id": "S01",
+          "sample_no": "WQ1001",
+          "sampling_point": "东岸取水口",
+          "distance": 1
+        },
+        {
+          "submission_id": "S02",
+          "sample_no": "WQ1003",
+          "sampling_point": "西岸取水口",
+          "distance": 1
+        },
+        {
+          "submission_id": "S04",
+          "sample_no": "WQ1003",
+          "sampling_point": "西岸复采点",
+          "distance": 1
+        }
+      ],
+      "possible_unmatched": true
+    },
+    {
+      "instrument_id": "I03",
+      "recorded_sample_no": "WQ1000",
+      "value": 7.51,
+      "status": "review",
+      "confirmed_mapping": null,
+      "candidate_mappings": [
+        {
+          "submission_id": "S01",
+          "sample_no": "WQ1001",
+          "sampling_point": "东岸取水口",
+          "distance": 1
+        },
+        {
+          "submission_id": "S02",
+          "sample_no": "WQ1003",
+          "sampling_point": "西岸取水口",
+          "distance": 1
+        },
+        {
+          "submission_id": "S04",
+          "sample_no": "WQ1003",
+          "sampling_point": "西岸复采点",
+          "distance": 1
+        }
+      ],
+      "possible_unmatched": true
+    },
+    {
+      "instrument_id": "I04",
+      "recorded_sample_no": "WQ5555",
+      "value": 8.03,
+      "status": "confirmed",
+      "confirmed_mapping": {
+        "submission_id": "S03",
+        "sample_no": "WQ5555",
+        "sampling_point": "南岸取水口",
+        "distance": 0
+      },
+      "candidate_mappings": [
+        {
+          "submission_id": "S03",
+          "sample_no": "WQ5555",
+          "sampling_point": "南岸取水口",
+          "distance": 0
+        }
+      ],
+      "possible_unmatched": false
+    },
+    {
+      "instrument_id": "I05",
+      "recorded_sample_no": "ZZZ999",
+      "value": 6.97,
+      "status": "review",
+      "confirmed_mapping": null,
+      "candidate_mappings": [],
+      "possible_unmatched": true
+    },
+    {
+      "instrument_id": "I06",
+      "recorded_sample_no": "WQ1006",
+      "value": 7.66,
+      "status": "review",
+      "confirmed_mapping": null,
+      "candidate_mappings": [
+        {
+          "submission_id": "S01",
+          "sample_no": "WQ1001",
+          "sampling_point": "东岸取水口",
+          "distance": 1
+        },
+        {
+          "submission_id": "S02",
+          "sample_no": "WQ1003",
+          "sampling_point": "西岸取水口",
+          "distance": 1
+        },
+        {
+          "submission_id": "S04",
+          "sample_no": "WQ1003",
+          "sampling_point": "西岸复采点",
+          "distance": 1
+        }
+      ],
+      "possible_unmatched": true
+    }
+  ]
+}
