@@ -1,19 +1,100 @@
 services:
+  # 持久化演示源：PostgreSQL 16，命名卷保存数据与复制槽。
+  source-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: lims
+      POSTGRES_PASSWORD: lims
+      POSTGRES_DB: lims
+      TZ: Asia/Shanghai
+    command:
+      - postgres
+      - -c
+      - wal_level=logical
+      - -c
+      - max_wal_senders=10
+      - -c
+      - max_replication_slots=10
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./postgres/01_schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lims -d lims"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+    restart: unless-stopped
+
+  # 单个同步进程：先建持久复制槽，再消费 pgoutput 写入 SQLite。
+  syncer:
+    build:
+      context: .
+      target: syncer
+    image: lims-syncer:1.1.0
+    environment:
+      LIMS_DSN: postgresql://lims:lims@source-db:5432/lims
+      LIMS_SLOT_NAME: lims_lite_slot
+      LIMS_SQLITE_PATH: /data/lims.db
+      TZ: Asia/Shanghai
+    volumes:
+      - sqlite_data:/data
+    depends_on:
+      source-db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # 查询 API：保留原核对接口，新增同步状态/结果查询，/docs 提供入口。
   api:
-    build: .
-    image: lab-sample-check:1.0.0
+    build:
+      context: .
+      target: api
+    image: lims-api:1.1.0
     ports:
       - "${API_PORT:-8000}:8000"
     environment:
+      LIMS_DSN: postgresql://lims:lims@source-db:5432/lims
+      LIMS_SLOT_NAME: lims_lite_slot
+      LIMS_SQLITE_PATH: /data/lims.db
       TZ: Asia/Shanghai
-    restart: unless-stopped
+    volumes:
+      - sqlite_data:/data
+    depends_on:
+      source-db:
+        condition: service_healthy
     healthcheck:
       test:
         - CMD
         - python
         - -c
         - import urllib.request; urllib.request.urlopen("http://127.0.0.1:8000/health", timeout=3)
-      interval: 30s
+      interval: 15s
       timeout: 5s
-      retries: 3
+      retries: 5
       start_period: 10s
+    restart: unless-stopped
+
+  # 一次性演示：等待复制槽就绪后执行更正/回滚/删除/断连续接与 API 验证。
+  demo:
+    build:
+      context: .
+      target: demo
+    image: lims-demo:1.1.0
+    environment:
+      LIMS_DSN: postgresql://lims:lims@source-db:5432/lims
+      LIMS_SLOT_NAME: lims_lite_slot
+      LIMS_SQLITE_PATH: /data/lims.db
+      API_BASE: http://api:8000
+      PYTHONPATH: /app/demo/sync
+    volumes:
+      - sqlite_data:/data
+    depends_on:
+      source-db:
+        condition: service_healthy
+      api:
+        condition: service_healthy
+    profiles: ["demo"]
+    restart: "no"
+
+volumes:
+  pgdata:
+  sqlite_data:

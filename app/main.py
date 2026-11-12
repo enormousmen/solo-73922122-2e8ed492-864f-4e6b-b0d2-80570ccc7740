@@ -12,6 +12,7 @@ from fastapi.responses import RedirectResponse
 from pydantic import BaseModel, Field, model_validator
 
 from .matcher import InstrumentRow, SubmissionRow, analyze_matches
+from .sync.api import router as sync_router
 
 API_DESCRIPTION = """
 将仪器检测记录按样品编号核对到送检水样。
@@ -28,13 +29,16 @@ API_DESCRIPTION = """
 """
 
 app = FastAPI(
-    title="环保实验室水样核对 API",
-    version="1.0.0",
+    title="环保实验室 LIMS 数据服务",
+    version="1.1.0",
     description=API_DESCRIPTION,
     contact={"name": "环保实验室"},
     docs_url="/docs",
     redoc_url="/redoc",
 )
+
+# LIMS 检测结果逻辑复制同步查询路由（原核对接口保持不变）。
+app.include_router(sync_router)
 
 
 class Submission(BaseModel):
